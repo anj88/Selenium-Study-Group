@@ -53,7 +53,6 @@ public class Day14 {
 		WebElement date =driver.findElement(By.id("daybox"));
 		WebElement skills =driver.findElement(By.id("Skills"));
 		WebElement selectcountry=driver.findElement(By.xpath("//span[@class='select2-selection__arrow']//b"));
-		WebElement value=wait.until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//input[@type='search']"))));
 		WebElement SubmitButton =driver.findElement(By.id("submitbtn"));
 		
 
@@ -138,7 +137,7 @@ public class Day14 {
 		
 		selectcountry.click();
 		//selectcountry.sendKeys("aus");
-		
+		WebElement value=wait.until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//input[@type='search']"))));
 		value.sendKeys("aus");
 		
 		value.sendKeys(Keys.ARROW_DOWN);
