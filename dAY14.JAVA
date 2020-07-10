@@ -46,6 +46,7 @@ public class Day14 {
 		WebElement EmailLabel=driver.findElement(By.xpath("//label[contains(text(),'Email address*')]"));
 		WebElement phone = driver.findElement(By.xpath("//input[@type='tel']"));
 		WebElement radio =driver.findElement(By.xpath("//input[@value='Male']"));
+		WebElement email =driver.findElement(By.id("eid"));
 		List<WebElement> checkboxes=driver.findElements(By.xpath("//input[@type='checkbox']"));
 		List<WebElement>Languages = driver.findElements(By.xpath("//a[@class='ui-corner-all']"));
 		WebElement year =driver.findElement(By.id("yearbox"));
@@ -53,7 +54,7 @@ public class Day14 {
 		WebElement date =driver.findElement(By.id("daybox"));
 		WebElement skills =driver.findElement(By.id("Skills"));
 		WebElement selectcountry=driver.findElement(By.xpath("//span[@class='select2-selection__arrow']//b"));
-		WebElement value=wait.until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//input[@type='search']"))));
+		WebElement tooltip = driver.findElement(By.xpath("//span[contains(text(),'Provide a valid email id for further updates')]"));
 		WebElement SubmitButton =driver.findElement(By.id("submitbtn"));
 		
 
@@ -81,13 +82,17 @@ public class Day14 {
 		String emailpresent =EmailLabel.getText();
 		if(emailpresent.equals("Email address*")) {
 			driver.findElement(By.xpath("//input[@type='email']")).sendKeys("abc@gmail.com");
+		
+		//Email ToolTip	
+		action.moveToElement(email).build().perform();		
+		System.out.println(tooltip.getText());	
+			
 		}
-
 		//Phone
 		phone.sendKeys("6474103926");
 		radio.click();
 
-		//Checkbox , first we will check if any checkbox is checked
+		//Check box , first we will check if any check box is checked
 		//System.out.println(checkbox.getSize());
 		//driver.findElement(By.id("checkbox1")).clear();
 		//driver.findElement(By.id("checkbox2")).clear();
@@ -110,7 +115,8 @@ public class Day14 {
 		int CountLanguages = Languages.size();
 		System.out.println("number of languages present in the dropbox is "+CountLanguages);
 		//selecting arabic and English
-		//Thread.sleep(1000);
+		
+		Thread.sleep(1000);
 		driver.findElement(By.id("msdd")).click();
 		WebElement L=wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//a[contains(text(),'Filipino')]")));
 		WebElement A=wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//a[contains(text(),'Croatian')]")));
@@ -121,7 +127,8 @@ public class Day14 {
 		N.click();
 		G.click();
 		//click anywhere on the screen
-		action.moveByOffset(913, 477).click().build().perform();
+		Thread.sleep(2000);
+		action.moveByOffset(20, 20).click().build().perform();
 
 		//Skills
 		skills.click();
@@ -131,14 +138,15 @@ public class Day14 {
 
 		Select s2 = new Select(driver.findElement(By.id("countries")));
 		s2.selectByValue("Afghanistan");
-		//Auto suggestive dropbox
-		Thread.sleep(2000);
+		
+		
+		//Auto suggestive drop box
 		
 		Thread.sleep(2000);
 		
 		selectcountry.click();
 		//selectcountry.sendKeys("aus");
-		
+		WebElement value=wait.until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//input[@type='search']"))));
 		value.sendKeys("aus");
 		
 		value.sendKeys(Keys.ARROW_DOWN);
@@ -146,7 +154,7 @@ public class Day14 {
 		String text =selectcountry.getText();
 		System.out.println("Text in the dropdown is"+text);
 
-		//DOB
+		//Date Of Birth 
 		Select s3 = new Select(year);
 		Select s4= new Select(month);
 		Select s5=new Select(date);
@@ -161,7 +169,7 @@ public class Day14 {
 		SubmitButton.click();
 		
 
-		//driver.close();			
+		driver.close();			
 	}
 
 }
